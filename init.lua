@@ -201,16 +201,12 @@ require('lazy').setup({
   },
 
   {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
+    -- Theme inspired by Gruvbox
+    'rebelot/kanagawa.nvim',
     priority = 1000,
     lazy = false,
     config = function()
-      require('onedark').setup {
-        -- Set a style preset. 'dark' is default.
-        style = 'dark', -- dark, darker, cool, deep, warm, warmer, light
-      }
-      require('onedark').load()
+      vim.cmd.colorscheme 'kanagawa-wave'
     end,
   },
 
@@ -221,7 +217,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'auto',
+        theme = 'kanagawa',
         component_separators = '|',
         section_separators = '',
       },
@@ -680,5 +676,54 @@ cmp.setup {
   },
 }
 
+-- Enable system clipboard support
+vim.opt.clipboard:append("unnamedplus")
+
+-- Map Command+A to select all in normal mode
+vim.api.nvim_set_keymap('n', '<D-a>', 'ggVG', { noremap = true, silent = true })
+
+-- Map Command+C and lowercase c to copy to system clipboard in visual mode
+vim.api.nvim_set_keymap('x', '<D-c>', '"+y', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('x', 'c', '"+y', { noremap = true, silent = true })
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+vim.cmd [[
+  augroup _general_settings
+    autocmd!
+    autocmd FileType qf,help,man,lspinfo nnoremap <silent> <buffer> q :close<CR> 
+    autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({higroup = 'Visual', timeout = 200}) 
+    autocmd BufWinEnter * :set formatoptions-=cro
+    autocmd FileType qf set nobuflisted
+  augroup end
+
+  augroup _git
+    autocmd!
+    autocmd FileType gitcommit setlocal wrap
+    autocmd FileType gitcommit setlocal spell
+  augroup end
+
+  augroup _markdown
+    autocmd!
+    autocmd FileType markdown setlocal wrap
+    autocmd FileType markdown setlocal spell
+  augroup end
+
+  augroup _auto_resize
+    autocmd!
+    autocmd VimResized * tabdo wincmd = 
+  augroup end
+
+  augroup _alpha
+    autocmd!
+    autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
+  augroup end
+
+  augroup _text
+    autocmd!
+    autocmd FileType text setlocal wrap
+    autocmd FileType text setlocal spell
+    autocmd FileType text setlocal linebreak
+]]
+
