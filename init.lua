@@ -730,6 +730,12 @@ vim.cmd [[
     autocmd FileType text setlocal wrap
     autocmd FileType text setlocal spell
     autocmd FileType text setlocal linebreak
+
+  augroup _tex
+    autocmd!
+    autocmd FileType tex setlocal wrap
+    autocmd FileType tex setlocal spell
+    autocmd FileType tex setlocal linebreak
 ]]
 
 vim.api.nvim_create_autocmd("VimEnter", {
