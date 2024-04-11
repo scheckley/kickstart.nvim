@@ -736,6 +736,11 @@ vim.cmd [[
     autocmd FileType tex setlocal wrap
     autocmd FileType tex setlocal spell
     autocmd FileType tex setlocal linebreak
+
+  augroup highlight_yank
+    autocmd!
+    autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({higroup = 'IncSearch', timeout = 200})
+
 ]]
 
 vim.api.nvim_create_autocmd("VimEnter", {
@@ -759,3 +764,4 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 		vim.cmd.JqxList()
 	end,
 })
+
