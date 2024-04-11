@@ -739,7 +739,7 @@ vim.cmd [[
 
   augroup highlight_yank
     autocmd!
-    autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({higroup = 'IncSearch', timeout = 200})
+    autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({higroup = 'IncSearch', timeout = 150})
 
 ]]
 
