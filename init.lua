@@ -677,7 +677,7 @@ cmp.setup {
 }
 
 -- Enable system clipboard support
-vim.opt.clipboard:append("unnamedplus")
+--vim.opt.clipboard:append("unnamedplus")
 
 -- Map Command+A to select all in normal mode
 vim.api.nvim_set_keymap('n', '<D-a>', 'ggVG', { noremap = true, silent = true })
