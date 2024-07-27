@@ -9,6 +9,10 @@ return {
       end,
     },
 
+    vim.o.tabstop == 4, -- Number of visual spaces per TAB
+    vim.o.shiftwidth == 4, -- Number of spaces to use for each step of (auto)indent
+    vim.o.expandtab == true, -- Use spaces instead of tabs
+
     completion = {
       completeopt = 'menu,menuone,noselect',
     },
